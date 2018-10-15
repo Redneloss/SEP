@@ -87,13 +87,13 @@
      			out.print("/SEP/CreateEPR");
      			break;
      		case "scso":
-     			out.print("/SEP/UpdateEPRstatus");
+     			out.print("");
      			break;
      		case "fm":
-     			out.print("/SEP/UpdateEPRfeedback");
+     			out.print("");
      			break;
      		case "am":
-     			out.print("/SEP/UpdateEPRstatus");
+     			out.print("");
      			break;	
         } %>" method="POST">
             <fieldset id="epr-details" <% 

@@ -52,7 +52,7 @@
         
         <div class="row">
 	        <div class="card-deck col-md-4 col-sm-6">
-	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="work-item-list.html">
+	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="/SEP/WorkItemListCRD">
 	                <div class="card-link text-center">
 	                    <i class="far fa-clipboard"></i> View Client Request Details</div>
 	            </a>
@@ -70,13 +70,13 @@
 	            </a>
 	        </div>
 	        <div class="card-deck col-md-4 col-sm-6">
-	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="prod-dept.html">
+	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="">
 	                <div class="card-link text-center">
 	                    <i class="fas fa-thumbtack"></i> Create Tasks</div>
 	            </a>
 	        </div>
 	        <div class="card-deck col-md-4 col-sm-6">
-	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="task-list.html">
+	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="">
 	                <div class="card-link text-center">
 	                    <i class="fas fa-tasks"></i> View Commented Task</div>
 	            </a>

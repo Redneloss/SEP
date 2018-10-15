@@ -59,6 +59,18 @@
     <servlet-name>GetTask</servlet-name>
     <servlet-class>sep.servlets.GetTask</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CreateCRD</servlet-name>
+    <servlet-class>sep.servlets.CreateCRD</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>WorkItemListCRD</servlet-name>
+    <servlet-class>sep.servlets.WorkItemListCRD</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetCRD</servlet-name>
+    <servlet-class>sep.servlets.GetCRD</servlet-class>
+  </servlet>
   
 
   <servlet-mapping>
@@ -153,6 +165,18 @@
     <servlet-name>GetTask</servlet-name>
     <url-pattern>/GetTaskProd</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateCRD</servlet-name>
+    <url-pattern>/CreateCRD</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WorkItemListCRD</servlet-name>
+    <url-pattern>/WorkItemListCRD</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCRD</servlet-name>
+    <url-pattern>/GetCRD</url-pattern>
+  </servlet-mapping>
   
   
   <filter>
@@ -202,6 +226,10 @@
   <filter>
     <filter-name>AuthFR</filter-name>
     <filter-class>sep.filters.AuthFR</filter-class>
+  </filter>
+  <filter>
+    <filter-name>AuthCRD</filter-name>
+    <filter-class>sep.filters.AuthCRD</filter-class>
   </filter>
 
 
@@ -292,6 +320,18 @@
   <filter-mapping>
     <filter-name>AuthProdSubteam</filter-name>
     <url-pattern>/GetTaskProd</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthCRD</filter-name>
+    <url-pattern>/CreateCRD</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthCRD</filter-name>
+    <url-pattern>/WorkItemListCRD</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthCRD</filter-name>
+    <url-pattern>/GetCRD</url-pattern>
   </filter-mapping>
   
   
