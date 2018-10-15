@@ -44,6 +44,7 @@ public class GetRR extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
 			
 		} catch (Exception e) {
+			response.sendRedirect("error.jsp");
 			e.printStackTrace();
 		}
 	}

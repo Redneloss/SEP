@@ -47,7 +47,20 @@
     <servlet-name>GetFR</servlet-name>
     <servlet-class>sep.servlets.GetFR</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CreateTaskPM</servlet-name>
+    <servlet-class>sep.servlets.CreateTaskPM</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TaskList</servlet-name>
+    <servlet-class>sep.servlets.TaskList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetTask</servlet-name>
+    <servlet-class>sep.servlets.GetTask</servlet-class>
+  </servlet>
   
+
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
@@ -127,6 +140,18 @@
   <servlet-mapping>
     <servlet-name>GetFR</servlet-name>
     <url-pattern>/GetFR</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateTaskPM</servlet-name>
+    <url-pattern>/CreateTaskPM</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TaskList</servlet-name>
+    <url-pattern>/TaskListProd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetTask</servlet-name>
+    <url-pattern>/GetTaskProd</url-pattern>
   </servlet-mapping>
   
   
@@ -253,8 +278,21 @@
     <url-pattern>/WorkItemListFR</url-pattern>
   </filter-mapping>
   <filter-mapping>
-  <filter-name>AuthFM</filter-name>
+  	<filter-name>AuthFM</filter-name>
     <url-pattern>/GetFR</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+  	<filter-name>AuthPM</filter-name>
+    <url-pattern>/CreateTaskPM</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthProdSubteam</filter-name>
+    <url-pattern>/TaskListProd</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthProdSubteam</filter-name>
+    <url-pattern>/GetTaskProd</url-pattern>
+  </filter-mapping>
+  
   
 </web-app>  

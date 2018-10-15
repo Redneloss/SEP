@@ -14,7 +14,7 @@ import java.util.Date;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class GetFR extends HttpServlet {
+public class TaskList extends HttpServlet {
 	private static final long serialVersionUID = 3367368895659890251L;
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
 	static final String DB_URL="jdbc:mysql://localhost:3306/sep";
@@ -25,8 +25,8 @@ public class GetFR extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
-	     		   + "FROM financial_request "
-	     		   + "WHERE id = ? ";
+	     		   + "FROM task "
+	     		   + "WHERE assigned_to = ?";
 		
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -36,22 +36,18 @@ public class GetFR extends HttpServlet {
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement(sql); ) {
 			
-			stmt.setString(1, request.getParameter("id"));
-			
+			stmt.setString(1, (String) request.getSession().getAttribute("email"));
 			ResultSet rs = stmt.executeQuery();
-			rs.next();
-			request.setAttribute("result", rs);
-			request.getRequestDispatcher("WEB-INF/forms/fr.jsp").forward(request, response);
+			request.setAttribute("resultSet", rs);
+			request.getRequestDispatcher("WEB-INF/forms/taskListProd.jsp").forward(request, response);
 			
 		} catch (Exception e) {
-			response.sendRedirect("error.jsp");
 			e.printStackTrace();
 		}
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {	
-		
 		
 	}
 }

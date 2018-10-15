@@ -14,7 +14,7 @@ import java.util.Date;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class GetFR extends HttpServlet {
+public class GetTask extends HttpServlet {
 	private static final long serialVersionUID = 3367368895659890251L;
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
 	static final String DB_URL="jdbc:mysql://localhost:3306/sep";
@@ -25,7 +25,7 @@ public class GetFR extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
-	     		   + "FROM financial_request "
+	     		   + "FROM task "
 	     		   + "WHERE id = ? ";
 		
 		try {
@@ -41,7 +41,7 @@ public class GetFR extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			request.setAttribute("result", rs);
-			request.getRequestDispatcher("WEB-INF/forms/fr.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/forms/taskProd.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			response.sendRedirect("error.jsp");

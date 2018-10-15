@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
+<%@ page language="java" import ="java.sql.*" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Don't forget to change the department name depending on the user role -->
-    <title>Home page</title>
+    <title>Tasks List</title>
 
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -16,11 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="/SEP/IndexProdSubteam">
                 <img src="logo.png" alt="logo" style="width:40px;">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -30,7 +27,7 @@
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href=""><i class="fa fa-home"></i> Home</a>
+                        <a class="nav-link" href="/SEP/IndexProdSubteam"><i class="fa fa-home"></i> Home</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -47,16 +44,35 @@
 
     <div class="container mt-4 mb-4">
         <div class="pb-2 mt-4 mb-4 border-bottom">
-            <h1>Home Page - Production Dept. Subteam</h1>
+            <h1>Tasks List</h1>
         </div>
-        
-        <div class="row justify-content-between">
-	        <div class="card-deck col-md-4 col-sm-6">
-                <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="/SEP/TaskListProd">
-                    <div class="card-link text-center">
-                        <i class="fas fa-tasks"></i> View Tasks</div>
-                </a>
-            </div>
-		</div>
+
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+            <!-- <thead class="bg-primary text-white"> -->
+                <tr class="d-flex">
+                    <th class="col-3">Description</th>
+                    <th class="col-3">Status</th>
+                    <th class="col-2">Priority</th>
+                    <th class="col-2">Sender</th>
+                    <th class="col-2">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<%
+            	ResultSet rs = (ResultSet) request.getAttribute("resultSet");
+            	while(rs.next()){
+            		out.write("<tr class=\"d-flex\">"
+                    + "<td class=\"col-3\">" + rs.getString("description") + "</td>"
+                    + "<td class=\"col-3\">" + rs.getString("status") + "</td>"
+                    + "<td class=\"col-2\">" + rs.getString("priority") + "</td>"
+                    + "<td class=\"col-2\">" + rs.getString("sender") + "</td>"
+                    + "<td class=\"col-2\"><a href=\"GetTaskProd?id=" + rs.getString("id") + "\" class=\"btn btn-dark\">"
+                    + "	<i class=\"fas fa-info-circle\"></i> Details</a>"
+                    + "</td></tr>\n");
+            	}
+          		%>
+            </tbody>
+        </table>
     </div>
 </body>

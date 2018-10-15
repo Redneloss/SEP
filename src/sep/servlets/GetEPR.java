@@ -44,6 +44,7 @@ public class GetEPR extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/forms/epr.jsp").forward(request, response);
 			
 		} catch (Exception e) {
+			response.sendRedirect("error.jsp");
 			e.printStackTrace();
 		}
 	}
