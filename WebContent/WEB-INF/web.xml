@@ -23,6 +23,18 @@
     <servlet-name>GetEPR</servlet-name>
     <servlet-class>sep.servlets.GetEPR</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CreateRR</servlet-name>
+    <servlet-class>sep.servlets.CreateRR</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>WorkItemListRR</servlet-name>
+    <servlet-class>sep.servlets.WorkItemListRR</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetRR</servlet-name>
+    <servlet-class>sep.servlets.GetEPR</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
@@ -80,6 +92,18 @@
     <servlet-name>GetEPR</servlet-name>
     <url-pattern>/GetEPR</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>CreateRR</servlet-name>
+    <url-pattern>/CreateRR</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WorkItemListRR</servlet-name>
+    <url-pattern>/WorkItemListRR</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetRR</servlet-name>
+    <url-pattern>/GetRR</url-pattern>
+  </servlet-mapping>
   
   
   <filter>
@@ -121,6 +145,10 @@
   <filter>
     <filter-name>AuthWorkItemListEPR</filter-name>
     <filter-class>sep.filters.AuthWorkItemListEPR</filter-class>
+  </filter>
+  <filter>
+    <filter-name>AuthRR</filter-name>
+    <filter-class>sep.filters.AuthRR</filter-class>
   </filter>
 
 
@@ -171,6 +199,22 @@
   <filter-mapping>
     <filter-name>AuthWorkItemListEPR</filter-name>
     <url-pattern>/GetEPR</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthRR</filter-name>
+    <url-pattern>/CreateRR</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthHR</filter-name>
+    <url-pattern>/WorkItemListRR</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthWorkItemListEPR</filter-name>
+    <url-pattern>/GetEPR</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthHR</filter-name>
+    <url-pattern>/GetRR</url-pattern>
   </filter-mapping>
   
 </web-app>  

@@ -14,19 +14,21 @@ import java.util.Date;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class GetEPR extends HttpServlet {
+public class WorkItemListRR extends HttpServlet {
 	private static final long serialVersionUID = 3367368895659890251L;
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
 	static final String DB_URL="jdbc:mysql://localhost:3306/sep";
 	static final String USER = "root";
     static final String PASS = "";
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
 	     		   + "FROM recruitment_request "
-	     		   + "WHERE id = ? ";
+	     		   + "WHERE status = 'new' OR "
+	     		   + "status = 'in_process_for_hiring' OR "
+	     		   + "status = 'in_process_for_outsourcing'";
 		
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -35,13 +37,10 @@ public class GetEPR extends HttpServlet {
 		}
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement(sql); ) {
-			
-			stmt.setString(1, request.getParameter("id"));
-			
+
 			ResultSet rs = stmt.executeQuery();
-			rs.next();
-			request.setAttribute("result", rs);
-			request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
+			request.setAttribute("resultSet", rs);
+			request.getRequestDispatcher("WEB-INF/forms/workItemList_rr.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
