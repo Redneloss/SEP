@@ -21,11 +21,11 @@ public class GetRR extends HttpServlet {
 	static final String USER = "root";
     static final String PASS = "";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
-	     		   + "FROM epr "
+	     		   + "FROM recruitment_request "
 	     		   + "WHERE id = ? ";
 		
 		try {
@@ -41,7 +41,7 @@ public class GetRR extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			request.setAttribute("result", rs);
-			request.getRequestDispatcher("WEB-INF/forms/epr.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -14,7 +14,7 @@ import java.util.Date;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class CreateRR extends HttpServlet {
+public class CreateFR extends HttpServlet {
 	private static final long serialVersionUID = 3367368895659890251L;
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
 	static final String DB_URL="jdbc:mysql://localhost:3306/sep";
@@ -23,14 +23,14 @@ public class CreateRR extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/forms/fr.jsp").forward(request, response);
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {	
 		
-		String sql = "INSERT INTO recruitment_request VALUES "
-				   + "(NULL, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO financial_request VALUES "
+				   + "(NULL, ?, ?, ?, ?, ?)";
 		
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -41,19 +41,16 @@ public class CreateRR extends HttpServlet {
 			PreparedStatement stmt = conn.prepareStatement(sql); ) {
 			
 			String department = request.getParameter("department");
-			String contract_type = request.getParameter("contract");
-			int years_of_experience = Integer.valueOf(request.getParameter("years-of-experience"));
-			String job_title = request.getParameter("job-title");
-			String job_description = request.getParameter("job-description");
+			int project = Integer.valueOf(request.getParameter("project-reference"));
+			int requested_amount = Integer.valueOf(request.getParameter("requested-amount"));
+			String reason = request.getParameter("reason");
 			String status = "new";
 			
-
 			stmt.setString(1, department);
-			stmt.setString(2, contract_type);
-			stmt.setInt(3, years_of_experience);
-			stmt.setString(4, job_title);
-			stmt.setString(5, job_description);
-			stmt.setString(6, status);
+			stmt.setInt(2, project);
+			stmt.setInt(3, requested_amount);
+			stmt.setString(4, reason);
+			stmt.setString(5, status);
 			
 	        int rows = stmt.executeUpdate();
 
@@ -63,11 +60,11 @@ public class CreateRR extends HttpServlet {
             else {
             	request.setAttribute("actionState", "fail");
             }
-	        request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
+	        request.getRequestDispatcher("WEB-INF/forms/fr.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("actionState", "fail");
-			request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/forms/fr.jsp").forward(request, response);
 		}
 	}
 	

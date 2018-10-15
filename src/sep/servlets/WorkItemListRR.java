@@ -21,14 +21,14 @@ public class WorkItemListRR extends HttpServlet {
 	static final String USER = "root";
     static final String PASS = "";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
 	     		   + "FROM recruitment_request "
 	     		   + "WHERE status = 'new' OR "
-	     		   + "status = 'in_process_for_hiring' OR "
-	     		   + "status = 'in_process_for_outsourcing'";
+	     		   + "status = 'in process for hiring' OR "
+	     		   + "status = 'in process for outsourcing'";
 		
 		try {
 			Class.forName(JDBC_DRIVER);

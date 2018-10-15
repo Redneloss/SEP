@@ -25,7 +25,7 @@ public class GetEPR extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
-	     		   + "FROM recruitment_request "
+	     		   + "FROM epr "
 	     		   + "WHERE id = ? ";
 		
 		try {
@@ -41,7 +41,7 @@ public class GetEPR extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			request.setAttribute("result", rs);
-			request.getRequestDispatcher("WEB-INF/forms/rr.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/forms/epr.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -12,7 +12,7 @@ public class Index extends HttpServlet {
 	public static final String HTML_START="<html><body>";
 	public static final String HTML_END="</body></html>";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String servletPath = request.getServletPath();
 		switch(servletPath) {
 			case "/IndexCSO":

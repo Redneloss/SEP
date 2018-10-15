@@ -64,7 +64,7 @@
 	            </a>
 	        </div>
 	        <div class="card-deck col-md-4 col-sm-6">
-	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="fr-form.html">
+	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="/SEP/CreateFR">
 	                <div class="card-link text-center">
 	                    <i class="fas fa-hand-holding-usd"></i> Create Financial Request</div>
 	            </a>

@@ -195,7 +195,7 @@
                 <div class="form-group row">
                     <label for="experience" class="col-sm-2 col-form-label">Years of experience:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="experience" name="years-of-experience" 
+                        <input type="number" class="form-control" id="experience" name="years-of-experience" 
                         value="<% if (rs != null ) out.print(rs.getString("years_of_experience")); %>"
                         placeholder="Enter minimum number of years of experience" required>
                     </div>

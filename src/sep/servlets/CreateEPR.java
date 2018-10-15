@@ -21,7 +21,7 @@ public class CreateEPR extends HttpServlet {
 	static final String USER = "root";
     static final String PASS = "";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/forms/epr.jsp").forward(request, response);
 	}

@@ -14,7 +14,7 @@ import java.util.Date;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class WorkItemListEPR extends HttpServlet {
+public class GetFR extends HttpServlet {
 	private static final long serialVersionUID = 3367368895659890251L;
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
 	static final String DB_URL="jdbc:mysql://localhost:3306/sep";
@@ -25,8 +25,8 @@ public class WorkItemListEPR extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String sql = "SELECT * "
-	     		   + "FROM epr "
-	     		   + "WHERE status = ? ";
+	     		   + "FROM financial_request "
+	     		   + "WHERE id = ? ";
 		
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -36,10 +36,12 @@ public class WorkItemListEPR extends HttpServlet {
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement(sql); ) {
 			
-			stmt.setString(1, "new");
+			stmt.setString(1, request.getParameter("id"));
+			
 			ResultSet rs = stmt.executeQuery();
-			request.setAttribute("resultSet", rs);
-			request.getRequestDispatcher("WEB-INF/forms/workItemList_epr.jsp").forward(request, response);
+			rs.next();
+			request.setAttribute("result", rs);
+			request.getRequestDispatcher("WEB-INF/forms/fr.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
