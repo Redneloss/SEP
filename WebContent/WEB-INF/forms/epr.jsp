@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
+<%@ page language="java" import ="java.sql.*" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +18,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="<%
+            	Object res = request.getAttribute("result");
+            	ResultSet rs = null;
+            	if (res != null){
+            		rs = (ResultSet) res;
+            	}
             	String userRole = (String) session.getAttribute("role");
             	switch (userRole){
             		case "cso":
@@ -91,14 +96,28 @@
      			out.print("/SEP/UpdateEPRstatus");
      			break;	
         } %>" method="POST">
-            <fieldset id="epr-details" enabled>
+            <fieldset id="epr-details" <% 
+		     		switch (userRole){
+		     		case "cso":
+		     			out.print("enabled");
+		     			break;
+		     		case "scso":
+		     			out.print("disabled");
+		     			break;
+		     		case "fm":
+		     			out.print("disabled");
+		     			break;
+		     		case "am":
+		     			out.print("disabled");
+		     			break;	
+		        } %>>
                 <div class="d-flex">
                 	<% if (userRole.equals("cso")){ %>
                     <div class="mb-4 text-danger">(For registered clients)</div>
                     <% } %>
                     <% if (!userRole.equals("cso")){ %>
-                    <div class="ml-auto">Status:
-                        <span id="status" class="text-primary"></span>
+                    <div class="ml-auto">Status: 
+                        <span id="status" class="text-primary"><% out.print(rs.getString("status")); %></span>
                     </div>
                     <% } %>
                 </div>
@@ -106,21 +125,30 @@
                 <div class="form-group row">
                     <label for="record-number" class="col-sm-2 col-form-label">Client record number:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="record-number" name="record-number" placeholder="Enter client record number">
+                        <input type="text" class="form-control" id="record-number" 
+                        name="record-number" placeholder="Enter client record number"
+                        value="<% if (rs != null ) out.print(rs.getString("cl_record_id")); %>"
+                        required>
                     </div>
                 </div>
         
                 <div class="form-group row">
                     <label for="client-name" class="col-sm-2 col-form-label">Client name:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="client-name" name="client-name" placeholder="Enter client name">
+                        <input type="text" class="form-control" id="client-name" 
+                        	name="client-name" placeholder="Enter client name" 
+                        	value="<% if (rs != null ) out.print(rs.getString("cl_record_name")); %>"
+                        	required>
                     </div>
                 </div>
         
                 <div class="form-group row">
                     <label for="event-type" class="col-sm-2 col-form-label">Event type:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="event-type" name="event-type" placeholder="Enter event type">
+                        <input type="text" class="form-control" id="event-type" name="event-type" 
+                        placeholder="Enter event type" 
+                        value="<% if (rs != null ) out.print(rs.getString("event_type")); %>"
+                        required>
                     </div>
                 </div>
         
@@ -129,7 +157,9 @@
                         <div class="form-row">
                             <label for="from" class="col-sm-2 col-form-label">From:</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control" id="from" name="start-date" placeholder="__/__/____">
+                                <input type="date" class="form-control" id="from" name="start-date"
+                                value="<% if (rs != null ) out.print(rs.getString("time_from")); %>" 
+                                placeholder="__/__/____" required>
                             </div>
                         </div>
                     </div>
@@ -138,7 +168,9 @@
                         <div class="form-row">
                             <label for="to" class="col-sm-2 col-form-label">To:</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="to" name="end-date" placeholder="__/__/____">
+                                <input type="date" class="form-control" id="to" name="end-date" 
+                                value="<% if (rs != null ) out.print(rs.getString("time_to")); %>"
+                                placeholder="__/__/____" required>
                             </div>
                         </div>
                     </div>
@@ -147,7 +179,9 @@
                 <div class="form-group row">
                     <label for="number-of-attendees" class="col-sm-3 col-form-label">Expected number of attendees:</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="number-of-attendees" name="number-of-attendees" placeholder="Enter number of attendees">
+                        <input type="number" class="form-control" id="number-of-attendees" name="number-of-attendees" 
+                        value="<% if (rs != null ) out.print(rs.getString("exp_attendees_num")); %>"
+                        placeholder="Enter number of attendees" required>
                     </div>
                 </div>
         
@@ -157,25 +191,35 @@
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <div class="custom-control custom-checkbox">
-                                    <input id="decorations" name="decorations" type="checkbox" class="custom-control-input">
+                                    <input id="decorations" name="decorations" type="checkbox" 
+                                    <% if (rs != null && rs.getBoolean("decorations_b")) out.print("checked"); %>
+                                    class="custom-control-input">
                                     <label for="decorations" class="custom-control-label">Decorations</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input id="food-and-drinks" name="food-and-drinks" type="checkbox" class="custom-control-input">
+                                    <input id="food-and-drinks" name="food-and-drinks" type="checkbox" 
+                                    <% if (rs != null && rs.getBoolean("food_drinks_b")) out.print("checked"); %>
+                                    class="custom-control-input">
                                     <label for="food-and-drinks" class="custom-control-label">Food/Drinks</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input id="photos" name="photos" type="checkbox" class="custom-control-input">
+                                    <input id="photos" name="photos" type="checkbox" 
+                                    <% if (rs != null && rs.getBoolean("photos_filming_b")) out.print("checked"); %>
+                                    class="custom-control-input">
                                     <label for="photos" class="custom-control-label">Photos/Filming</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="custom-control custom-checkbox">
-                                    <input id="music" name="music" type="checkbox" class="custom-control-input">
+                                <div class="custom-control custom-checkbox" > 
+                                    <input id="music" name="music" type="checkbox" 
+                                    <% if (rs != null && rs.getBoolean("music_b")) out.print("checked"); %>
+                                    class="custom-control-input">
                                     <label for="music" class="custom-control-label">Music</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input id="posters" name="posters" type="checkbox" class="custom-control-input">
+                                    <input id="posters" name="posters" type="checkbox" 
+                                    <% if (rs != null && rs.getBoolean("posters_artwork_b")) out.print("checked"); %>
+                                    class="custom-control-input">
                                     <label for="posters" class="custom-control-label">Posters/Art work</label>
                                 </div>
                             </div>
@@ -186,7 +230,9 @@
                 <div class="form-group row">
                     <label for="expected-budget" class="col-sm-2 col-form-label">Expected budget:</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="expected-budget" name="expected-budget" placeholder="Enter expected budget">
+                        <input type="number" class="form-control" id="expected-budget" name="expected-budget" 
+                        value="<% if (rs != null ) out.print(rs.getString("exp_budget")); %>"
+                        placeholder="Enter expected budget" required>
                     </div>
                 </div>
             </fieldset>
@@ -199,7 +245,15 @@
             </fieldset>
             <% } %>
             
-			<% if (userRole.equals("scso")){ %>
+			<% if (userRole.equals("scso") && !rs.getString("status").equals("new")){ %>
+			<fieldset id="feedback disabled">
+                <div class="form-group">
+                    <label for="feedback" class="col-form-label">Feedback from the Financial Manager:</label>
+                    <textarea class="form-control" rows="3" id="feedback" name="feedback" placeholder="Enter feedback about the expected budget"></textarea>
+                </div>
+            </fieldset>
+            <% } %>
+            <% if (userRole.equals("scso")) { %>
             <fieldset id="approve-reject">
                 <div class="btn-group" role="group">
                     <button type="submit" value="approve-epr" class="btn btn-primary mt-3 mb-4">Approve</button>

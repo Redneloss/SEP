@@ -52,7 +52,7 @@
         
         <div class="row justify-content-between">
 	        <div class="card-deck col-md-4 col-sm-6">
-	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="work-item-list.html">
+	            <a class="card border-primary bg-light text-primary p-4 mt-3 mb-3" style="text-decoration: none;" href="/SEP/WorkItemListEPR">
 	                <div class="card-link text-center">
 	                    <i class="fas fa-clipboard-check"></i> View Event Planning Requests</div>
 	            </a>
