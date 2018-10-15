@@ -29,50 +29,9 @@ public class CreateEPR extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {	
 		
-		String status = "new";
-		String cl_record_id = request.getParameter("record-number");
-		String cl_record_name = request.getParameter("client-name");
-		String event_type = request.getParameter("event-type");
-		SimpleDateFormat formatterFrom = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat formatterTo = new SimpleDateFormat("yyyy-MM-dd");
-		Date time_from1 = null;
-		String time_from = null;
-		Date time_to1 = null;
-		String time_to = null;
-		try {
-			time_from1 = formatterFrom.parse(request.getParameter("start-date"));
-			time_from = formatterTo.format(time_from1);
-			time_to1 = formatterFrom.parse(request.getParameter("end-date"));
-			time_to = formatterTo.format(time_to1);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		String exp_attendees_num = request.getParameter("number-of-attendees");
-		boolean decorations_b = false;
-		if (request.getParameter("decorations") != null){
-			decorations_b = true;
-		}
-		boolean food_drinks_b = false;
-		if (request.getParameter("food-and-drinks") != null){
-			food_drinks_b = true;
-		}
-		boolean photos_filming_b = false;
-		if (request.getParameter("photos") != null){
-			photos_filming_b = true;
-		}
-		boolean music_b = false;
-		if (request.getParameter("music") != null){
-			music_b = true;
-		}
-		boolean posters_artwork_b = false;
-		if (request.getParameter("posters") != null){
-			posters_artwork_b = true;
-		}
-		String fm_comment = "";
-		
 		String sql = "INSERT INTO `epr` "
-				   + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				
+				   + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
 		try {
 			Class.forName(JDBC_DRIVER);
 		} catch (ClassNotFoundException e1) {
@@ -80,31 +39,64 @@ public class CreateEPR extends HttpServlet {
 		}
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement(sql); ) {
+			
+			String status = "new";
+			String cl_record_id = request.getParameter("record-number");
+			String cl_record_name = request.getParameter("client-name");
+			String event_type = request.getParameter("event-type");
+			String time_from = request.getParameter("start-date");
+			String time_to = request.getParameter("end-date");
+			int exp_attendees_num = Integer.valueOf(request.getParameter("number-of-attendees"));
+			boolean decorations_b = false;
+			if (request.getParameter("decorations") != null){
+				decorations_b = true;
+			}
+			boolean food_drinks_b = false;
+			if (request.getParameter("food-and-drinks") != null){
+				food_drinks_b = true;
+			}
+			boolean photos_filming_b = false;
+			if (request.getParameter("photos") != null){
+				photos_filming_b = true;
+			}
+			boolean music_b = false;
+			if (request.getParameter("music") != null){
+				music_b = true;
+			}
+			boolean posters_artwork_b = false;
+			if (request.getParameter("posters") != null){
+				posters_artwork_b = true;
+			}
+			int exp_budget = Integer.valueOf(request.getParameter("expected-budget"));
+			String fm_comment = "";
+
 			stmt.setString(1, status);
 			stmt.setString(2, cl_record_id);
 			stmt.setString(3, cl_record_name);
 			stmt.setString(4, event_type);
 			stmt.setString(5, time_from);
 			stmt.setString(6, time_to);
-			stmt.setString(7, exp_attendees_num);
+			stmt.setInt(7, exp_attendees_num);
 			stmt.setBoolean(8, decorations_b);
 			stmt.setBoolean(9, food_drinks_b);
 			stmt.setBoolean(10, photos_filming_b);
 			stmt.setBoolean(11, music_b);
 			stmt.setBoolean(12, posters_artwork_b);
-			stmt.setString(13, fm_comment);
+			stmt.setInt(13, exp_budget);
+			stmt.setString(14, fm_comment);
 	        int rows = stmt.executeUpdate();
 
 	        if (rows == 1) {
-	        	
+	        	request.setAttribute("actionState", "success");
 	        }
             else {
-            	
+            	request.setAttribute("actionState", "fail");
             }
-	        
-
-		} catch (SQLException e) {
+	        request.getRequestDispatcher("WEB-INF/forms/epr.jsp").forward(request, response);
+		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("actionState", "fail");
+			request.getRequestDispatcher("WEB-INF/forms/epr.jsp").forward(request, response);
 		}
 	}
 	

@@ -129,7 +129,7 @@
                         <div class="form-row">
                             <label for="from" class="col-sm-2 col-form-label">From:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="from" name="start-date" placeholder="__/__/____">
+                                <input type="date" class="form-control" id="from" name="start-date" placeholder="__/__/____">
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                         <div class="form-row">
                             <label for="to" class="col-sm-2 col-form-label">To:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="to" name="end-date" placeholder="__/__/____">
+                                <input type="date" class="form-control" id="to" name="end-date" placeholder="__/__/____">
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                 <div class="form-group row">
                     <label for="number-of-attendees" class="col-sm-3 col-form-label">Expected number of attendees:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="number-of-attendees" name="number-of-attendees" placeholder="Enter number of attendees">
+                        <input type="number" class="form-control" id="number-of-attendees" name="number-of-attendees" placeholder="Enter number of attendees">
                     </div>
                 </div>
         
@@ -186,7 +186,7 @@
                 <div class="form-group row">
                     <label for="expected-budget" class="col-sm-2 col-form-label">Expected budget:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="expected-budget" name="expected-budget" placeholder="Enter expected budget">
+                        <input type="number" class="form-control" id="expected-budget" name="expected-budget" placeholder="Enter expected budget">
                     </div>
                 </div>
             </fieldset>
@@ -235,7 +235,18 @@
                 </div>
             </fieldset>
             <% } %>          
-            
+        
         </form>
+        
+                
+       	<%	Object actionState = request.getAttribute("actionState");
+       		if (actionState != null){
+       			String actionStateStr = (String) actionState;
+       			if( actionStateStr.equals("fail") ){   %>
+       				<div class="text-danger">The action has failed.</div>
+       	<%		} else if( actionStateStr.equals("success")){  %>
+       				<div class="text-success">The action has been completed successfully.</div>
+       	<%		}
+       		}		      %>
     </div>
 </body>
