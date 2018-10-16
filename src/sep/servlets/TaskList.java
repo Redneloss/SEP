@@ -39,7 +39,7 @@ public class TaskList extends HttpServlet {
 			stmt.setString(1, (String) request.getSession().getAttribute("email"));
 			ResultSet rs = stmt.executeQuery();
 			request.setAttribute("resultSet", rs);
-			request.getRequestDispatcher("WEB-INF/forms/taskListProd.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/forms/taskListProd.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
